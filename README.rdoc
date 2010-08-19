@@ -11,6 +11,10 @@ Compares domains with root nameserver and your nameserver.
 
 == Usage
 
-  echo "example.com" | dns_checker.rb
+  echo "example.com" | dns_checker.rb dns.my-server.com
 
+== TODO
+
+* More modular code
+* Tests?!
 
