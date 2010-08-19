@@ -1,0 +1,14 @@
+= dns_checker
+
+== Installation
+
+  git clone git://github.com/splattael/dns_checker.git
+  cd dns_checker
+  gem install bundle
+  bundle install
+
+== Usage
+
+  echo "example.com" | dns_checker.rb
+
+
