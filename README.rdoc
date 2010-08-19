@@ -1,5 +1,7 @@
 = dns_checker
 
+Compares domains with root nameserver and your nameserver.
+
 == Installation
 
   git clone git://github.com/splattael/dns_checker.git
