@@ -8,6 +8,12 @@ Bundler.setup
 require 'net/dns/resolver'
 require 'term/ansicolor'
 
+COLORS = {
+  :fail => :red,
+  :pass => :green,
+  :warn => :yellow
+}
+
 class String
   include Term::ANSIColor
 end
@@ -44,12 +50,18 @@ def check(domain)
   local = extract_ns(resolve_at(domain, MY_NAMESERVER).authority)
 
   if at_root != local
-    puts "[FAIL] #{domain}: '#{at_root}' != '#{local}'".red.bold
+    write :fail, domain, "'#{at_root}' != '#{local}'"
   else
-    puts "[PASS] #{domain}".green
+    write :pass, domain
   end
 rescue => e
-  puts "[WARN] #{domain}: #{e}".white.on_yellow
+  write :warn, domain, e
+end
+
+def write(type, domain, reason=nil)
+  color = COLORS[type]
+  reason = ": #{reason.to_s.cyan.bold}" if reason
+  puts "#{type.to_s.upcase.send(color).bold} #{domain}#{reason}"
 end
 
 my_nameserver = ARGV.shift or abort("usage: echo 'example.com' | #{$0} my-nameserver")
